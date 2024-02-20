@@ -31,6 +31,8 @@ def compute_stats(scores, num_self, num_anomaly):
     sensitivities = []
     specificities = []
 
+    print(*scores, sep='\n')
+
     count_anomaly = 0
     for cutoff_index, [score, anomalous] in enumerate(scores):
         if anomalous:
@@ -60,7 +62,7 @@ def generate_plot(sensitivities, specificities, auc, file_train, file_test_self,
 
     plt.title(
         f'Trained on {file_train}, Tested on {file_test_self} and {file_test_anomaly}\n\
-        Using n = {n} and r = {r}, AUC = {auc}'
+        Using n = {n} and r = {r}, AUC = {auc:.4f}'
     )
     plt.show()
 
@@ -113,9 +115,10 @@ def main():
     file_test_anomaly = 'tagalog.test'
 
     n = 10
-    r = 2
+    r = 1
 
-    compute_aucs(file_train, file_test_self, file_test_anomaly, n)
+    compute_auc(file_train, file_test_self, file_test_anomaly, n, r)
+    # compute_aucs(file_train, file_test_self, file_test_anomaly, n)
 
 
 if __name__ == '__main__':
